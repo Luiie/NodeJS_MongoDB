@@ -2,6 +2,7 @@ const fs = require("fs");
 const Tour = require("./../models/tourModel");
 const APIFeatures = require("./../utils/appFeatures");
 const catchAsync = require("./../utils/catchAsync");
+const AppError = require("../utils/appError");
 
 exports.aliasTopTours = (req, res, next) => {
     req.query.limit = '5';
@@ -30,21 +31,22 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
 });
 
 exports.getTour = catchAsync(async (req, res, next) => {
-    const tours = await Tour.findById(req.params.id);
+    const tour = await Tour.findById(req.params.id);
     
+    // if(!tour) {
+    //     return next(new AppError("No tour found with this ID", 404));
+    // }
+
     res.status(200).json({
         status: "success",
-        results: tours.length,
         data: {
-            tours
+            tour
         }
     });
 });
 
 
 exports.createTour = catchAsync(async (req, res, next) => {
-    // const newTour = new Tour({});
-    // newTour.save();
     const newTour = await Tour.create(req.body);
 
     res.status(201).json({
