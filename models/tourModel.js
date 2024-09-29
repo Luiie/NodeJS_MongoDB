@@ -85,28 +85,6 @@ tourSchema.pre("save", function(next) {
     next();
 });
 
-// tourSchema.post("save", function(doc, next) {
-//     console.log(doc);
-//     next();
-// });
-
-// tourSchema.pre(/^find/, function(next) {
-//     this.find({ secreteTour: { $ne: true } });
-//     this.start = Date.now();
-//     next();
-// });
-
-// // tourSchema.pre("findOne", function(next) {
-// //     this.find({ secreteTour: { $ne: true } });
-// //     next();
-// // });
-
-// tourSchema.post(/^find/, function(doc, next) {
-//     console.log(`Query took ${Date.now() - this.start} ms`);
-    
-//     next();
-// });
-
 tourSchema.pre("aggregate", function(next) {
     this.pipline().unshift({ $match: { secreteTour: {$ne: true}} });
     next();
