@@ -1,0 +1,3 @@
+### Study for MongoDB
+
+Once upon a time, there was a person who disappeared while studying MongoDB...
