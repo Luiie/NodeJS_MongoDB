@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const AppError = require("./utils/appError");
 const gloablErrorHandler = require("./controllers/errorController");
 
+const viewRouter = require("./routes/viewRouter");
 const tourRouter = require("./routes/tourRouter");
 const userRouter = require("./routes/userRouter");
 const app = express();
@@ -21,26 +22,7 @@ app.use((req, res, next) => {
     next();
 });
 
-// 3. Routes
-app.get('/', (req, res) => {
-    res.status(200).render('base', {
-        tour: 'The Forest Hiker',
-        user: 'Luiie'
-    });
-})
-
-app.get('/overview', (req, res) => {
-    res.status(200).render('overview', {
-        title: 'All Tours'
-    })
-})
-
-app.get('/tour', (req, res) => {
-    res.status(200).render('tour', {
-        title: 'The test5'
-    })
-})
-
+app.use('/', viewRouter);
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 
