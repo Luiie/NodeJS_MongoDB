@@ -1,7 +1,10 @@
 const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
+const compression = require("compression");
+
 const AppError = require("./utils/appError");
+
 const gloablErrorHandler = require("./controllers/errorController");
 
 const viewRouter = require("./routes/viewRouter");
@@ -31,6 +34,7 @@ app.all('*', (req, res, next) => {
 });
 
 app.use(gloablErrorHandler);
+app.user(compression());
 
 // 4. Server
 
